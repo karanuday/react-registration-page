@@ -12,6 +12,10 @@ body {
   outline: none;
 }
 
+:disabled {
+  cursor: not-allowed !important;
+}
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;

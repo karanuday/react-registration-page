@@ -4,9 +4,9 @@ class signUp extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      uname: '',
+      username: '',
       email: '',
-      pwd: '',
+      password: '',
       showPwd: false,
     };
   }
@@ -21,30 +21,36 @@ class signUp extends Component {
   }
 
   render() {
-    const { uname, email, pwd, showPwd } = this.state;
+    const { username, email, password, showPwd } = this.state;
     return (
       <div>
         <h1>Register New User</h1>
-        <form onSubmit={() => { this.props.onSubmit(uname, email, pwd) }}>
-          <label htmlFor="uname" className="form-label">Username</label><br/>
-          <input type="text" id="uname" value={uname} autoComplete="new-password"
+        <form onSubmit={(e) => { this.props.onSubmit(username, email, password, e) }}>
+          <label htmlFor="username" className="form-label">Username</label><br />
+          <input type="text" id="username" value={username} autoComplete="new-password"
             className="form-input" placeholder="Username"
-            onChange={e => this.updateField(e, 'uname')}/><br/>
-          <label htmlFor="lname" className="form-label">Email</label><br/>
+            required
+            onChange={e => this.updateField(e, 'username')} /><br />
+
+          <label htmlFor="lname" className="form-label">Email</label><br />
           <input type="email" id="email" value={email}
+            required
             className="form-input" placeholder="Email"
             onChange={e => this.updateField(e, 'email')}
-          /><br/>
-          <label htmlFor="lname" className="form-label">Password</label><br/>
-          <input type={showPwd ? 'text' : 'password'} id="password" value={pwd}
+          /><br />
+
+          <label htmlFor="lname" className="form-label">Password</label><br />
+          <input type={showPwd ? 'text' : 'password'} id="password" value={password}
+            required
             className="password-input" placeholder="Password"
-            onChange={e => this.updateField(e, 'pwd')}
+            onChange={e => this.updateField(e, 'password')}
           />
-          <button onClick={(e) => this.togglePwdVisibility(e)}
-            className="pwd-ctrl"
-            >
+          <button
+            onClick={(e) => this.togglePwdVisibility(e)}
+            className="pwd-ctrl">
             {showPwd ? 'Hide' : 'Show'} Password
-          </button><br/>
+          </button><br />
+
           <button type="submit" className="next-btn">Next</button>
         </form>
       </div>
