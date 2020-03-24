@@ -8,6 +8,11 @@ body {
   color: white;
 }
 
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
 :focus {
   outline: none;
 }
@@ -59,6 +64,7 @@ li {
 
 .active {
   background: #50b1f2;
+  color: black;
 }
 
 .inactive {
@@ -76,6 +82,7 @@ li {
   font-size: 14px;
   font-weight: bold;
   border: none;
+  cursor: pointer;
 }
 
 .form-input, .password-input {

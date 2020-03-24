@@ -1,74 +1,58 @@
 import React from 'react';
 import {
-  BrowserRouter as Router,
   Switch,
   Route,
-  Link
+  Link,
+  withRouter,
 } from "react-router-dom";
-import { UserProvider } from '../UserContext';
+// import { UserProvider } from '../UserContext';
+import UserContext from '../UserContext';
 import Registration from '../pages/Registration';
 import UserList from './UserList';
 import DashBoard from '../components/DashBoard';
 
-class Parent extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      users: [],
-      user: {},
-      currentPage: 'signUp',
-    };
-  }
-  
-  changePage(newPage) {
-    if (['signUp', 'userDetail'].includes(this.state.currentPage)) {
-      const changeScreen = prompt("Changes will not be saved, are you sure?", "Yes") || '';
-      if (changeScreen.toLowerCase() === 'yes') this.setState({ currentPage: newPage });
-    } else {
-      this.setState({ currentPage: newPage });
-    }
-  }
-
-  render() {
-    // let currentPageComponent = this.fetchCurrentPage();
-    const {currentPage} = this.state;
-    return (
-      <UserProvider>
-        <Router>
+function Parent () {
+  return (
+    <UserContext.Consumer>
+    {
+      context => {
+        const { changePage, currentPage } = context;
+        return (
           <div className="parent">
-            <button
-              onClick={()=> {this.changePage('signUp')}}
-              className={`nav-btn ${currentPage === 'signUp' ? 'active' : 'inactive'}`}>
-              <Link to="/register">Register</Link>
-            </button>
-            <button
-              onClick={()=> {this.changePage('usersList')}}
-              className={`nav-btn ${currentPage === 'usersList' ? 'active' : 'inactive'}`}>
-              <Link to="/list">View Registrations</Link>
-            </button>
-            <button
-              onClick={()=> {this.changePage('dashboard')}}
-              className={`nav-btn ${currentPage === 'dashboard' ? 'active' : 'inactive'}`}>
-              <Link to="/dash">Dashboard</Link>
-            </button>
+            <Link to="/register" >
+              <button
+                onClick={()=> {changePage('signUp')}}
+                className={`nav-btn ${currentPage === 'signUp' ? 'active' : 'inactive'}`}>
+                Register
+              </button>
+            </Link>
+            <Link to="/list">
+              <button
+                onClick={()=> {changePage('list')}}
+                className={`nav-btn ${currentPage === 'list' ? 'active' : 'inactive'}`}>
+                View Registrations
+              </button>
+            </Link>
+            <Link to="/dash">
+              <button
+                onClick={()=> {changePage('dash')}}
+                className={`nav-btn ${currentPage === 'dash' ? 'active' : 'inactive'}`}>
+                Dashboard
+              </button>
+            </Link>
             <div className="main-page">
               <Switch>
-                <Route exact path="/register">
-                  <Registration />
-                </Route>
-                <Route path="/list">
-                  <UserList />
-                </Route>
-                <Route path="/dash">
-                  <DashBoard />
-                </Route>
+                <Route path="/register" component={Registration} />
+                <Route exact path="/list" component={UserList} />
+                <Route exact path="/dash" component={DashBoard} />
               </Switch>
             </div>
           </div>
-        </Router>
-      </UserProvider>
-    );
-  }
+        );
+      }
+    }
+    </UserContext.Consumer>
+  );
 }
 
-export default Parent;
+export default withRouter(Parent);

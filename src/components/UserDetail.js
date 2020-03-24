@@ -1,17 +1,23 @@
 import React from 'react';
 import UserContext from '../UserContext';
+import { useHistory } from 'react-router-dom';
 
 const UserDetail = () => {
-  console.log('IN HEREEEE');
+  let history = useHistory();
   return (
     <UserContext.Consumer>
     {
       context => {
         const { username, email, name, address, contact } = context.user;
+        function submitForm(e) {
+          e.preventDefault();
+          context.registerUser();
+          history.push('/list') ;
+        }
         return (
           <div>
             <h1>Registration Details</h1>
-            <form onSubmit={(e) => { e.preventDefault(); context.registerUser() }}>
+            <form onSubmit={submitForm}>
               <label htmlFor="username" className="form-label">Username</label><br />
               <input type="text" id="username" value={username} autoComplete="off"
                 disabled
