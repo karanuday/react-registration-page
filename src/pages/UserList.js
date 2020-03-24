@@ -1,19 +1,29 @@
 import React from 'react';
+import UserContext from '../UserContext';
 
 function UsersList(props) {
-  let userElements;
-  if (props.users.length) {
-    userElements = props.users.map((user, idx) => (<li key={idx}>{user.name} ({user.uname})</li>));
-  } else {
-    userElements = 'No Users registered yet.'
-  }
   return (
-    <div>
-      <h1>Registrations</h1>
-      <ul>
-        {userElements}
-      </ul>
-    </div>
+    <UserContext.Consumer>
+    {
+      context => {
+        let userElements;
+        if (context.users.length) {
+          userElements =
+            <ul>
+              {context.users.map((user, idx) => (<li key={idx}>{user.name} ({user.username})</li>))}
+            </ul>
+        } else {
+          userElements = <span>No Users registered yet.</span>
+        }
+        return (
+          <div>
+            <h1>Registrations</h1>
+            {userElements}
+          </div>
+        );
+      }
+    }
+    </UserContext.Consumer>
   );
 }
 
