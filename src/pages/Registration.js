@@ -13,7 +13,7 @@ const RegistrationPage = () => {
     <div>
       <Switch>
         <Route exact path={path} component={SignUp} />
-        <Route path={`${path}/details`} component={UserDetail} />
+        <Route exact path={`${path}/details`} component={UserDetail} />
       </Switch>
     </div>
   );

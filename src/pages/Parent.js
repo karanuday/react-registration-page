@@ -3,9 +3,8 @@ import {
   Switch,
   Route,
   Link,
-  withRouter,
+  Redirect,
 } from "react-router-dom";
-// import { UserProvider } from '../UserContext';
 import UserContext from '../UserContext';
 import Registration from '../pages/Registration';
 import UserList from './UserList';
@@ -45,6 +44,7 @@ function Parent () {
                 <Route path="/register" component={Registration} />
                 <Route exact path="/list" component={UserList} />
                 <Route exact path="/dash" component={DashBoard} />
+                <Redirect exact from="/" to="/register" />
               </Switch>
             </div>
           </div>
@@ -55,4 +55,4 @@ function Parent () {
   );
 }
 
-export default withRouter(Parent);
+export default Parent;

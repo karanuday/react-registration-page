@@ -8,7 +8,9 @@ export default function DashBoard() {
       context => {
         const { users } = context;
         return (
-          <span><span className="user-count">{users.length}</span> &nbsp;registered user(s).</span>
+          <span>
+            <span className="user-count">{users.length}</span> &nbsp;registered user(s).
+          </span>
         )
       }
     }

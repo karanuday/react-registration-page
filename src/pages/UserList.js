@@ -1,7 +1,7 @@
 import React from 'react';
 import UserContext from '../UserContext';
 
-function UsersList(props) {
+function UserList(props) {
   return (
     <UserContext.Consumer>
     {
@@ -27,4 +27,4 @@ function UsersList(props) {
   );
 }
 
-export default UsersList;
+export default UserList;
